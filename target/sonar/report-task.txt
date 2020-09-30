@@ -1,0 +1,6 @@
+projectKey=org.jacoco:demo
+serverUrl=http://localhost:9001
+serverVersion=6.7.7.38951
+dashboardUrl=http://localhost:9001/dashboard/index/org.jacoco:demo
+ceTaskId=AXTOxNAxml_mpwtzHnK8
+ceTaskUrl=http://localhost:9001/api/ce/task?id=AXTOxNAxml_mpwtzHnK8
