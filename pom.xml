@@ -129,8 +129,7 @@
 		<artifactId>sonar-packaging-maven-plugin</artifactId>
 		<version>1.18.0.372</version>
 		<extensions>true</extensions>
-		<configuration>
-		
+		<configuration>		
 		</configuration>
           </plugin>	
 
