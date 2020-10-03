@@ -26,7 +26,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button class="button" id="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite, 1 failed test</span>
+      <span class="top-banner-font-1">1 suite</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -40,7 +40,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" class="navigator-link" panel-name="suite-calculator">
-              <span class="suite-name border-failed">calculator</span>
+              <span class="suite-name border-passed">calculator</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -93,21 +93,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">7 methods, 1 failed,   6 passed</span>
-                  </li>
-                  <li>
-                    <span class="method-list-title failed">Failed methods</span>
-                    <span class="show-or-hide-methods failed">
-                      <a href="#" panel-name="suite-calculator" class="hide-methods failed suite-calculator"> (hide)</a> <!-- hide-methods failed suite-calculator -->
-                      <a href="#" panel-name="suite-calculator" class="show-methods failed suite-calculator"> (show)</a> <!-- show-methods failed suite-calculator -->
-                    </span>
-                    <div class="method-list-content failed suite-calculator">
-                      <span>
-                        <img width="3%" src="failed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-calculator" title="org.demo.app.CalculatorTest" hash-for-method="substractionFailTest">substractionFailTest</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                    </div> <!-- method-list-content failed suite-calculator -->
+                    <span class="method-stats">13 methods,   13 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -133,7 +119,22 @@
                       <br/>
                       <span>
                         <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-calculator" title="org.demo.app.CalculatorTest" hash-for-method="mult">mult</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-calculator" title="org.demo.app.CalculatorTest" hash-for-method="multTest">multTest</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-calculator" title="org.demo.app.CalculatorTest" hash-for-method="multTestWithNegative">multTestWithNegative</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-calculator" title="org.demo.app.CalculatorTest" hash-for-method="multTestWithNegative2">multTestWithNegative2</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-calculator" title="org.demo.app.CalculatorTest" hash-for-method="multTestWithZero">multTestWithZero</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
@@ -143,7 +144,27 @@
                       <br/>
                       <span>
                         <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-calculator" title="org.demo.app.CalculatorTest" hash-for-method="substractionTestWithNegative">substractionTestWithNegative</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-calculator" title="org.demo.app.CalculatorTest" hash-for-method="substractionTestWithZero">substractionTestWithZero</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
                         <a href="#" class="method navigator-link" panel-name="suite-calculator" title="org.demo.app.CalculatorTest" hash-for-method="sumTest">sumTest</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-calculator" title="org.demo.app.CalculatorTest" hash-for-method="sumTestWithNegative">sumTestWithNegative</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-calculator" title="org.demo.app.CalculatorTest" hash-for-method="sumTestWithZero">sumTestWithZero</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-calculator -->
@@ -158,30 +179,6 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-calculator" class="panel calculator">
-          <div class="suite-calculator-class-failed">
-            <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
-              <span class="class-name">org.demo.app.CalculatorTest</span>
-            </div> <!-- main-panel-header rounded-window-top -->
-            <div class="main-panel-content rounded-window-bottom">
-              <div class="method">
-                <div class="method-content">
-                  <a name="substractionFailTest">
-                  </a> <!-- substractionFailTest -->
-                  <span class="method-name">substractionFailTest</span>
-                  <div class="stack-trace">java.lang.AssertionError: expected [3] but found [2]
-	at org.demo.app.CalculatorTest.substractionFailTest(CalculatorTest.java:39)
-	at java.util.ArrayList.forEach(ArrayList.java:1259)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:748)
-... Removed 24 stack frames
-</div> <!-- stack-trace -->
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-            </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-calculator-class-failed -->
           <div class="suite-calculator-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
@@ -211,9 +208,30 @@
               </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
-                  <a name="mult">
-                  </a> <!-- mult -->
-                  <span class="method-name">mult</span>
+                  <a name="multTest">
+                  </a> <!-- multTest -->
+                  <span class="method-name">multTest</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="multTestWithNegative">
+                  </a> <!-- multTestWithNegative -->
+                  <span class="method-name">multTestWithNegative</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="multTestWithNegative2">
+                  </a> <!-- multTestWithNegative2 -->
+                  <span class="method-name">multTestWithNegative2</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="multTestWithZero">
+                  </a> <!-- multTestWithZero -->
+                  <span class="method-name">multTestWithZero</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
               <div class="method">
@@ -225,9 +243,37 @@
               </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
+                  <a name="substractionTestWithNegative">
+                  </a> <!-- substractionTestWithNegative -->
+                  <span class="method-name">substractionTestWithNegative</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="substractionTestWithZero">
+                  </a> <!-- substractionTestWithZero -->
+                  <span class="method-name">substractionTestWithZero</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
                   <a name="sumTest">
                   </a> <!-- sumTest -->
                   <span class="method-name">sumTest</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="sumTestWithNegative">
+                  </a> <!-- sumTestWithNegative -->
+                  <span class="method-name">sumTestWithNegative</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="sumTestWithZero">
+                  </a> <!-- sumTestWithZero -->
+                  <span class="method-name">sumTestWithZero</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -284,40 +330,64 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(7);
+data.addRows(13);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'divisionTest')
+data.setCell(0, 1, 'divisionByZeroTest')
 data.setCell(0, 2, 'org.demo.app.CalculatorTest')
-data.setCell(0, 3, 5);
+data.setCell(0, 3, 3);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'substractionTest')
+data.setCell(1, 1, 'divisionTest')
 data.setCell(1, 2, 'org.demo.app.CalculatorTest')
-data.setCell(1, 3, 1);
+data.setCell(1, 3, 3);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'divisionByZeroTest')
+data.setCell(2, 1, 'exampleTest')
 data.setCell(2, 2, 'org.demo.app.CalculatorTest')
-data.setCell(2, 3, 1);
+data.setCell(2, 3, 2);
 data.setCell(3, 0, 3)
-data.setCell(3, 1, 'substractionFailTest')
+data.setCell(3, 1, 'substractionTestWithNegative')
 data.setCell(3, 2, 'org.demo.app.CalculatorTest')
 data.setCell(3, 3, 1);
 data.setCell(4, 0, 4)
-data.setCell(4, 1, 'exampleTest')
+data.setCell(4, 1, 'sumTestWithZero')
 data.setCell(4, 2, 'org.demo.app.CalculatorTest')
-data.setCell(4, 3, 0);
+data.setCell(4, 3, 1);
 data.setCell(5, 0, 5)
-data.setCell(5, 1, 'sumTest')
+data.setCell(5, 1, 'multTest')
 data.setCell(5, 2, 'org.demo.app.CalculatorTest')
-data.setCell(5, 3, 0);
+data.setCell(5, 3, 1);
 data.setCell(6, 0, 6)
-data.setCell(6, 1, 'mult')
+data.setCell(6, 1, 'substractionTest')
 data.setCell(6, 2, 'org.demo.app.CalculatorTest')
 data.setCell(6, 3, 0);
+data.setCell(7, 0, 7)
+data.setCell(7, 1, 'multTestWithNegative')
+data.setCell(7, 2, 'org.demo.app.CalculatorTest')
+data.setCell(7, 3, 0);
+data.setCell(8, 0, 8)
+data.setCell(8, 1, 'multTestWithNegative2')
+data.setCell(8, 2, 'org.demo.app.CalculatorTest')
+data.setCell(8, 3, 0);
+data.setCell(9, 0, 9)
+data.setCell(9, 1, 'sumTest')
+data.setCell(9, 2, 'org.demo.app.CalculatorTest')
+data.setCell(9, 3, 0);
+data.setCell(10, 0, 10)
+data.setCell(10, 1, 'substractionTestWithZero')
+data.setCell(10, 2, 'org.demo.app.CalculatorTest')
+data.setCell(10, 3, 0);
+data.setCell(11, 0, 11)
+data.setCell(11, 1, 'sumTestWithNegative')
+data.setCell(11, 2, 'org.demo.app.CalculatorTest')
+data.setCell(11, 3, 0);
+data.setCell(12, 0, 12)
+data.setCell(12, 1, 'multTestWithZero')
+data.setCell(12, 2, 'org.demo.app.CalculatorTest')
+data.setCell(12, 3, 0);
 window.suiteTableData['calculator']= { tableData: data, tableDiv: 'times-div-calculator'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 97 ms</span>
+              <span class="suite-total-time">Total running time: 52 ms</span>
               <div id="times-div-calculator">
               </div> <!-- times-div-calculator -->
             </div> <!-- times-div -->
@@ -332,9 +402,16 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-calculator" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">0 ignored methods</span>
+            <span class="header-content">1 ignored method</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">org.demo.app.CalculatorTest</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">substractionFailTest</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-calculator" class="panel">
@@ -350,33 +427,55 @@ return data;
               </div> <!-- configuration-test before -->
               <div class="test-method">
                 <span class="method-name">divisionByZeroTest</span>
-                <span class="method-start">50 ms</span>
+                <span class="method-start">29 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">divisionTest</span>
-                <span class="method-start">56 ms</span>
+                <span class="method-start">34 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">exampleTest</span>
-                <span class="method-start">62 ms</span>
+                <span class="method-start">38 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
-                <span class="method-name">mult</span>
-                <span class="method-start">63 ms</span>
+                <span class="method-name">multTest</span>
+                <span class="method-start">40 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
-                <img src="failed.png">
-                </img>
-                <span class="method-name">substractionFailTest</span>
-                <span class="method-start">65 ms</span>
+                <span class="method-name">multTestWithNegative</span>
+                <span class="method-start">42 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">multTestWithNegative2</span>
+                <span class="method-start">42 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">multTestWithZero</span>
+                <span class="method-start">43 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">substractionTest</span>
-                <span class="method-start">76 ms</span>
+                <span class="method-start">44 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">substractionTestWithNegative</span>
+                <span class="method-start">44 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">substractionTestWithZero</span>
+                <span class="method-start">45 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">sumTest</span>
-                <span class="method-start">85 ms</span>
+                <span class="method-start">46 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">sumTestWithNegative</span>
+                <span class="method-start">46 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">sumTestWithZero</span>
+                <span class="method-start">46 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

@@ -1,2 +1,3 @@
+org/demo/pmd/Foo.class
 org/demo/app/ICalculator.class
 org/demo/app/Calculator.class

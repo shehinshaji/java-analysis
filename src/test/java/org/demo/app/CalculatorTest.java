@@ -28,9 +28,33 @@ public class CalculatorTest {
     }
 
     @Test
+    public void sumTestWithZero() {
+       int result = calculator.sum(0, 0);
+       assertEquals(result, 0);
+    }
+
+    @Test
+    public void sumTestWithNegative() {
+       int result = calculator.sum(-1, -5);
+       assertEquals(result, -6);
+    }	
+
+    @Test
     public void substractionTest() {
         int result = calculator.subtraction(5, 3);
         assertEquals(result, 2);
+    }
+
+    @Test
+    public void substractionTestWithZero() {
+        int result = calculator.subtraction(0, 0);
+        assertEquals(result, 0);
+    }
+
+    @Test
+    public void substractionTestWithNegative() {
+        int result = calculator.subtraction(-5, -3);
+        assertEquals(result, -2);
     }
 
     @Ignore	
@@ -41,10 +65,28 @@ public class CalculatorTest {
     }
 
     @Test
-    public void mult() {
+    public void multTest() {
         int result = calculator.multiplication(5, 3);
         assertEquals(result, 15);
     }
+
+    @Test
+    public void multTestWithZero() {
+        int result = calculator.multiplication(0, 3);
+        assertEquals(result, 0);
+    }
+
+    @Test
+    public void multTestWithNegative() {
+        int result = calculator.multiplication(-5, 3);
+        assertEquals(result, -15);
+    }
+
+    @Test
+    public void multTestWithNegative2() {
+        int result = calculator.multiplication(-5, -3);
+        assertEquals(result, 15);
+    }	
 
 
     @Test

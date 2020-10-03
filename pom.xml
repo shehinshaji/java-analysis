@@ -31,6 +31,8 @@
             <artifactId>testng</artifactId>
             <version>7.3.0</version>
         </dependency>
+
+
     </dependencies>
 
     <build>
@@ -72,11 +74,22 @@
                 <version>3.0.1</version>
                 <executions>
                     <execution>
+			<id>pmd-check</id>
+			<phase>validate</phase>
                         <goals>
-                            <goal>check</goal>
+			    <goal>check</goal>	
+                            <goal>cpd-check</goal>
                         </goals>
                     </execution>
                 </executions>
+
+		<configuration>
+			<sourceEncoding>UTF-8</sourceEncoding>
+			<linkXRef>true</linkXRef>
+			<failurePriority>2</failurePriority>
+			<failOnViolation>true</failOnViolation>
+			<printFailingErrors>true</printFailingErrors>
+		</configuration>
             </plugin>
 
             <plugin>
