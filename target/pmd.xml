@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.0.2" timestamp="2020-10-04T19:46:28.940">
+<file name="/home/wls/Documents/DevOps/workspace/demo/src/main/java/org/demo/app/Calculator.java">
+<violation beginline="9" endline="9" begincolumn="17" endcolumn="21" rule="UselessParentheses" ruleset="Unnecessary" package="org.demo.app" class="Calculator" method="sum" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.2/rules/java/unnecessary.html#UselessParentheses" priority="4">
+Useless parentheses.
+</violation>
+<violation beginline="14" endline="14" begincolumn="17" endcolumn="21" rule="UselessParentheses" ruleset="Unnecessary" package="org.demo.app" class="Calculator" method="subtraction" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.2/rules/java/unnecessary.html#UselessParentheses" priority="4">
+Useless parentheses.
+</violation>
+<violation beginline="19" endline="19" begincolumn="17" endcolumn="21" rule="UselessParentheses" ruleset="Unnecessary" package="org.demo.app" class="Calculator" method="multiplication" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.2/rules/java/unnecessary.html#UselessParentheses" priority="4">
+Useless parentheses.
+</violation>
+<violation beginline="28" endline="28" begincolumn="17" endcolumn="21" rule="UselessParentheses" ruleset="Unnecessary" package="org.demo.app" class="Calculator" method="divison" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.2/rules/java/unnecessary.html#UselessParentheses" priority="4">
+Useless parentheses.
+</violation>
+</file>
+<file name="/home/wls/Documents/DevOps/workspace/demo/src/main/java/org/demo/app/ICalculator.java">
+<violation beginline="5" endline="5" begincolumn="12" endcolumn="33" rule="UnusedModifier" ruleset="Unused Code" package="org.demo.app" class="ICalculator" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.2/rules/java/unusedcode.html#UnusedModifier" priority="3">
+Avoid modifiers which are implied by the context
+</violation>
+<violation beginline="7" endline="7" begincolumn="12" endcolumn="41" rule="UnusedModifier" ruleset="Unused Code" package="org.demo.app" class="ICalculator" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.2/rules/java/unusedcode.html#UnusedModifier" priority="3">
+Avoid modifiers which are implied by the context
+</violation>
+<violation beginline="9" endline="9" begincolumn="12" endcolumn="44" rule="UnusedModifier" ruleset="Unused Code" package="org.demo.app" class="ICalculator" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.2/rules/java/unusedcode.html#UnusedModifier" priority="3">
+Avoid modifiers which are implied by the context
+</violation>
+<violation beginline="11" endline="11" begincolumn="12" endcolumn="61" rule="UnusedModifier" ruleset="Unused Code" package="org.demo.app" class="ICalculator" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.2/rules/java/unusedcode.html#UnusedModifier" priority="3">
+Avoid modifiers which are implied by the context
+</violation>
+</file>
+<file name="/home/wls/Documents/DevOps/workspace/demo/src/main/java/org/demo/pmd/Foo.java">
+<violation beginline="6" endline="9" begincolumn="13" endcolumn="9" rule="EmptyTryBlock" ruleset="Empty Code" package="org.demo.pmd" class="Foo" method="method1" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.2/rules/java/empty.html#EmptyTryBlock" priority="3">
+Avoid empty try blocks
+</violation>
+<violation beginline="9" endline="11" begincolumn="11" endcolumn="9" rule="EmptyCatchBlock" ruleset="Empty Code" package="org.demo.pmd" class="Foo" method="method1" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.2/rules/java/empty.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="11" endline="13" begincolumn="11" endcolumn="9" rule="EmptyFinallyBlock" ruleset="Empty Code" package="org.demo.pmd" class="Foo" method="method1" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.0.2/rules/java/empty.html#EmptyFinallyBlock" priority="3">
+Avoid empty finally blocks
+</violation>
+</file>
+</pmd>
