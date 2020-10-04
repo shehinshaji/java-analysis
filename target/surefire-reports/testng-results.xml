@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" ignored="1" total="14" passed="13">
   <reporter-output>
   </reporter-output>
-  <suite name="calculator" duration-ms="52" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+  <suite name="calculator" duration-ms="115" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
     <groups>
     </groups>
-    <test name="calc" duration-ms="52" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+    <test name="calc" duration-ms="115" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
       <class name="org.demo.app.CalculatorTest">
-        <test-method status="PASS" signature="init()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="init" is-config="true" duration-ms="8" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+        <test-method status="PASS" signature="init()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="init" is-config="true" duration-ms="9" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- init -->
-        <test-method status="PASS" signature="divisionByZeroTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="divisionByZeroTest" duration-ms="3" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+        <test-method status="PASS" signature="divisionByZeroTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="divisionByZeroTest" duration-ms="4" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
           <exception class="java.lang.ArithmeticException">
             <message>
               <![CDATA[Division can't be perform!]]>
@@ -49,54 +49,54 @@ at java.lang.Thread.run(Thread.java:748)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- divisionByZeroTest -->
-        <test-method status="PASS" signature="divisionTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="divisionTest" duration-ms="3" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+        <test-method status="PASS" signature="divisionTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="divisionTest" duration-ms="6" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- divisionTest -->
-        <test-method status="PASS" signature="exampleTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="exampleTest" duration-ms="2" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+        <test-method status="PASS" signature="exampleTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="exampleTest" duration-ms="1" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- exampleTest -->
-        <test-method status="PASS" signature="multTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="multTest" duration-ms="1" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+        <test-method status="PASS" signature="multTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="multTest" duration-ms="0" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- multTest -->
-        <test-method status="PASS" signature="multTestWithNegative()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="multTestWithNegative" duration-ms="0" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+        <test-method status="PASS" signature="multTestWithNegative()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="multTestWithNegative" duration-ms="0" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- multTestWithNegative -->
-        <test-method status="PASS" signature="multTestWithNegative2()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="multTestWithNegative2" duration-ms="0" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- multTestWithNegative2 -->
-        <test-method status="PASS" signature="multTestWithZero()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="multTestWithZero" duration-ms="0" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+        <test-method status="PASS" signature="multTestWithZero()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="multTestWithZero" duration-ms="1" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- multTestWithZero -->
-        <test-method status="PASS" signature="substractionTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="substractionTest" duration-ms="0" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+        <test-method status="PASS" signature="multTestWithNegative2()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="multTestWithNegative2" duration-ms="0" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- multTestWithNegative2 -->
+        <test-method status="PASS" signature="substractionTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="substractionTest" duration-ms="0" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- substractionTest -->
-        <test-method status="PASS" signature="substractionTestWithNegative()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="substractionTestWithNegative" duration-ms="1" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+        <test-method status="PASS" signature="substractionTestWithNegative()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="substractionTestWithNegative" duration-ms="0" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- substractionTestWithNegative -->
-        <test-method status="PASS" signature="substractionTestWithZero()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="substractionTestWithZero" duration-ms="0" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+        <test-method status="PASS" signature="substractionTestWithZero()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="substractionTestWithZero" duration-ms="0" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- substractionTestWithZero -->
-        <test-method status="PASS" signature="sumTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="sumTest" duration-ms="0" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- sumTest -->
-        <test-method status="PASS" signature="sumTestWithZero()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="sumTestWithZero" duration-ms="1" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- sumTestWithZero -->
-        <test-method status="PASS" signature="sumTestWithNegative()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="sumTestWithNegative" duration-ms="0" started-at="2020-10-03T11:41:59 IST" finished-at="2020-10-03T11:41:59 IST">
+        <test-method status="PASS" signature="sumTestWithNegative()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="sumTestWithNegative" duration-ms="1" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- sumTestWithNegative -->
+        <test-method status="PASS" signature="sumTest()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="sumTest" duration-ms="0" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- sumTest -->
+        <test-method status="PASS" signature="sumTestWithZero()[pri:0, instance:org.demo.app.CalculatorTest@5f375618]" name="sumTestWithZero" duration-ms="0" started-at="2020-10-04T13:11:40 IST" finished-at="2020-10-04T13:11:40 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- sumTestWithZero -->
       </class> <!-- org.demo.app.CalculatorTest -->
     </test> <!-- calc -->
   </suite> <!-- calculator -->
