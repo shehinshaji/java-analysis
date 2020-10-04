@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jacoco</groupId>
     <artifactId>demo</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
 
-   <properties>
-       <project.scm.id>git_credentials</project.scm.id>
-   </properties> 
+    <properties>
+        <project.scm.id>git_credentials</project.scm.id>
+    </properties>
 
     <dependencies>
-	<dependency>
-	      <groupId>org.sonarsource.sonarqube</groupId>
-	      <artifactId>sonar-plugin-api</artifactId>
-	      <!-- minimal version of SonarQube to support. -->
-	      <version>6.7</version>
-	      <!-- mandatory scope -->
-	      <scope>provided</scope>
-	  </dependency>
+        <dependency>
+            <groupId>org.sonarsource.sonarqube</groupId>
+            <artifactId>sonar-plugin-api</artifactId>
+            <!-- minimal version of SonarQube to support. -->
+            <version>6.7</version>
+            <!-- mandatory scope -->
+            <scope>provided</scope>
+        </dependency>
 
 
         <dependency>
@@ -39,17 +38,17 @@
     </dependencies>
 
     <distributionManagement>
-	<snapshotRepository>
-	   <id>devops</id>
-           <layout>default</layout>
-           <url>http://localhost:8081/repository/devops-snapshot/</url>
-	</snapshotRepository>
+        <snapshotRepository>
+            <id>devops</id>
+            <layout>default</layout>
+            <url>http://localhost:8081/repository/devops-snapshot/</url>
+        </snapshotRepository>
 
-	<repository>
-	   <id>devops</id>
-           <layout>default</layout>
-           <url>http://localhost:8081/repository/devops-release/</url>	
-	</repository>
+        <repository>
+            <id>devops</id>
+            <layout>default</layout>
+            <url>http://localhost:8081/repository/devops-release/</url>
+        </repository>
     </distributionManagement>
 
 
@@ -92,22 +91,22 @@
                 <version>3.0.1</version>
                 <executions>
                     <execution>
-			<id>pmd-check</id>
-			<phase>validate</phase>
+                        <id>pmd-check</id>
+                        <phase>validate</phase>
                         <goals>
-			    <goal>check</goal>	
+                            <goal>check</goal>
                             <goal>cpd-check</goal>
                         </goals>
                     </execution>
                 </executions>
 
-		<configuration>
-			<sourceEncoding>UTF-8</sourceEncoding>
-			<linkXRef>true</linkXRef>
-			<failurePriority>2</failurePriority>
-			<failOnViolation>true</failOnViolation>
-			<printFailingErrors>true</printFailingErrors>
-		</configuration>
+                <configuration>
+                    <sourceEncoding>UTF-8</sourceEncoding>
+                    <linkXRef>true</linkXRef>
+                    <failurePriority>2</failurePriority>
+                    <failOnViolation>true</failOnViolation>
+                    <printFailingErrors>true</printFailingErrors>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -122,7 +121,7 @@
                             <!-- Checks for Size Violations.                    -->
                             <!-- See http://checkstyle.sf.net/config_sizes.html -->
                             <module name="FileLength">
-                                <property name="max" value="3500" />
+                                <property name="max" value="3500"/>
                                 <property name="fileExtensions" value="java"/>
                             </module>
 
@@ -142,39 +141,39 @@
             </plugin>
 
 
-	 <plugin>
-		<groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
-		<artifactId>sonar-packaging-maven-plugin</artifactId>
-		<version>1.18.0.372</version>
-		<extensions>true</extensions>
-		<configuration>		
-		</configuration>
-          </plugin>	
+            <plugin>
+                <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+                <artifactId>sonar-packaging-maven-plugin</artifactId>
+                <version>1.18.0.372</version>
+                <extensions>true</extensions>
+                <configuration>
+                </configuration>
+            </plugin>
 
-	<plugin>
-	   <groupId>org.apache.maven.plugins</groupId>
-	   <artifactId>maven-deploy-plugin</artifactId>
-           <version>2.8.2</version>
-	</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+            </plugin>
 
-	<plugin>
-	   <groupId>external.atlassian.jgitflow</groupId>
-	   <artifactId>jgitflow-maven-plugin</artifactId>
-	   <version>1.0-m5.1</version>
-	   <configuration>
-	     <flowInitContext>
-	        <masterBranchName>master</masterBranchName>
-	        <developBranchName>development</developBranchName>
-	        <featureBranchPrefix>feature-</featureBranchPrefix>
-	        <releaseBranchPrefix>release-</releaseBranchPrefix>
-	        <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
-	        <versionTagPrefix>version-</versionTagPrefix>
-	     </flowInitContext>
-	     <username>${jusername}</username>
-	     <password>${jpassword}</password>
-	     <noDeploy>true</noDeploy>	    
-	   </configuration>
-	</plugin>
+            <plugin>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>1.0-m5.1</version>
+                <configuration>
+                    <flowInitContext>
+                        <masterBranchName>master</masterBranchName>
+                        <developBranchName>development</developBranchName>
+                        <featureBranchPrefix>feature-</featureBranchPrefix>
+                        <releaseBranchPrefix>release-</releaseBranchPrefix>
+                        <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+                        <versionTagPrefix>version-</versionTagPrefix>
+                    </flowInitContext>
+                    <username>${jusername}</username>
+                    <password>${jpassword}</password>
+                    <noDeploy>true</noDeploy>
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>
@@ -186,7 +185,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.0.1</version>
                 <configuration>
-                    <linkXref>true</linkXref>
+                    <linkXRef>true</linkXRef>
                     <sourceEncoding>utf-8</sourceEncoding>
                     <minimumTokens>100</minimumTokens>
                     <targetJdk>1.8</targetJdk>
