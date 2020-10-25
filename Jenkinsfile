@@ -15,6 +15,7 @@ pipeline {
 
     parameters {
   	string defaultValue: 'master', description: 'specify the git branch to execute build', name: 'branchName', trim: true
+	choice choices: ['DEV', 'QA', 'PROD'], description: 'server info....', name: 'server'
     }
 
     
