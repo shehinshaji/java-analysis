@@ -12,12 +12,17 @@ pipeline {
     environment {
        REPORT = "target/reports"
     }	
+
+    parameters {
+  	string defaultValue: 'master', description: 'specify the git branch to execute build', name: 'branchName', trim: true
+    }
+
     
     stages {
         
         stage('SCM') {
             steps {
-                git 'https://github.com/cicd25/demo.git'
+                git branch: "${branchName}", credentialsId: 'git-credentials', url: 'https://github.com/cicd25/demo.git'
             }
         }
     
