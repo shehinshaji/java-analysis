@@ -3,6 +3,10 @@ pipeline {
     agent {
         label 'mavenTwo'
     }
+  
+    options {
+  	timestamps
+    }
 
     environment {
        REPORT = "target/reports"
@@ -25,7 +29,7 @@ pipeline {
 	environment {
 		REPORT = "target/test"
 	}	
-	
+	/*
 	input {
 	  message 'Press OK to continue'
 	  submitter 'umesh, mahesh, murali'
@@ -33,10 +37,10 @@ pipeline {
 	  parameters {
 	    choice choices: ['DEV', 'QA', 'PROD'], description: 'server to deploy application', name: 'server'
 	  }
-	}
+	}*/
 	steps {
 		echo """environment variable : ${env.REPORT}"""
-		echo "server : ${server}"
+		//echo "server : ${server}"
 
 	}
 
