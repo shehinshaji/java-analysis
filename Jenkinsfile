@@ -7,6 +7,7 @@ pipeline {
     options {
   	   timestamps()
   	   skipDefaultCheckout true
+	   skipStagesAfterUnstable
     }
 
     environment {
@@ -23,7 +24,7 @@ pipeline {
         
         stage('SCM') {
             steps {
-                git branch: "${branchName}", credentialsId: 'git-credentials', url: 'https://github.com/cicd25/demo.git'
+                git branch: "${env.branchName}", credentialsId: 'git-credentials', url: 'https://github.com/cicd25/demo.git'
             }
         }
     
@@ -31,7 +32,8 @@ pipeline {
         stage("BUILD") {
             steps {
              script {
-		        echo """environment variable : ${env.REPORT}"""
+		
+		echo """environment variable : ${env.REPORT}"""
                 sh 'mvn clean compile'
                 
                 currentBuild.result = 'UNSTABLE'
