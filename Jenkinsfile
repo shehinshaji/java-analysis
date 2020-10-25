@@ -3,17 +3,21 @@ pipeline {
     agent {
         label 'mavenTwo'
     }
+
+    environment {
+       REPORT = "target/reports"
+    }	
     
     stages {
         
-        stage('SCM') {
-            steps {
-                git branch: "${branchName}", credentialsId: 'git-credentials', url: 'https://github.com/cicd25/demo.git'
-            }
-        }
-        
+              
         stage("BUILD") {
             steps {
+
+		echo """environment variable : ${env.REPORT} 
+ 			PATH : ${env.PATH}"""
+
+
                 sh 'mvn clean package'
             }
         }
