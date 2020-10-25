@@ -5,7 +5,8 @@ pipeline {
     }
   
     options {
-  	timestamps
+  	   timestamps()
+  	   skipDefaultCheckout true
     }
 
     environment {
@@ -14,40 +15,41 @@ pipeline {
     
     stages {
         
+        stage('SCM') {
+            steps {
+                git 'https://github.com/cicd25/demo.git'
+            }
+        }
+    
               
         stage("BUILD") {
             steps {
-
-		echo """environment variable : ${env.REPORT}"""
-
-
+             script {
+		        echo """environment variable : ${env.REPORT}"""
                 sh 'mvn clean compile'
+                
+                currentBuild.result = 'UNSTABLE'
+                //currentBuild.result = 'FAILURE'
+             }
             }
         }
 
        stage('TEST') {
-	environment {
-		REPORT = "target/test"
-	}	
-	/*
-	input {
-	  message 'Press OK to continue'
-	  submitter 'umesh, mahesh, murali'
-	  submitterParameter 'serverInfo'
-	  parameters {
-	    choice choices: ['DEV', 'QA', 'PROD'], description: 'server to deploy application', name: 'server'
-	  }
-	}*/
-	steps {
-		echo """environment variable : ${env.REPORT}"""
-		//echo "server : ${server}"
-
-	}
+	    environment {
+		    REPORT = "target/test"
+	    }
+	   
+    	steps {
+    		echo """environment variable : ${env.REPORT}"""
+    		//echo "server : ${server}"
+    	
+    	}
 
 	}
         
     }
     
 }
+
 
 
