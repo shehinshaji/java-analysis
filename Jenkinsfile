@@ -7,7 +7,7 @@ pipeline {
     options {
   	   timestamps()
   	   skipDefaultCheckout true
-	   skipStagesAfterUnstable
+	   skipStagesAfterUnstable()
     }
 
     environment {
