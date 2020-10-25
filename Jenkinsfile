@@ -25,7 +25,6 @@ pipeline {
 	environment {
 		REPORT = "target/test"
 	}	
-	echo """environment variable : ${env.REPORT}"""
 	
 	input {
 	  message 'Press OK to continue'
@@ -36,6 +35,7 @@ pipeline {
 	  }
 	}
 	steps {
+		echo """environment variable : ${env.REPORT}"""
 		echo "server : ${server}"
 
 	}
