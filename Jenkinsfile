@@ -48,8 +48,11 @@ pipeline {
 	    }
 	   
     	steps {
-    		echo """environment variable : ${env.REPORT}"""
-    		//echo "server : ${server}"
+    		
+		sh """	environment variable : ${env.REPORT}
+			server : ${params.server}
+			mvn test
+		"""
     	
     	}
 
