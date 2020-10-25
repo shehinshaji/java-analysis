@@ -31,14 +31,13 @@ pipeline {
               
         stage("BUILD") {
             steps {
-             script {
-		
-		echo """environment variable : ${env.REPORT}"""
-                sh 'mvn clean compile'
-                
-                currentBuild.result = 'UNSTABLE'
-                //currentBuild.result = 'FAILURE'
-             }
+		     script {
+			
+			echo """environment variable : ${env.REPORT}"""
+		        sh 'mvn clean compile'
+		        
+		        currentBuild.result = 'UNSTABLE'
+		     }
             }
         }
 
