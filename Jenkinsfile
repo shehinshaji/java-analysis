@@ -32,15 +32,10 @@ pipeline {
         stage("BUILD") {
 	    
             steps {
-	     script {
-		try {
-			error "manually ternimat........"
-
-		} catch(e) {
-		   echo "Exception : ${e}"
-		   throw e		
+		script {
+			mavenBuild()
 		}
-	     }
+	     
             }
         }
 
@@ -71,6 +66,17 @@ pipeline {
 	  }
 	}
     
+}
+
+def mavenBuild() {
+
+	try {
+		error "manually ternimat........"
+
+	} catch(e) {
+	   echo "Exception : ${e}"
+	   throw e		
+	}	    
 }
 
 
