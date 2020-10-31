@@ -27,14 +27,14 @@ pipeline {
                 git branch: "${env.branchName}", credentialsId: 'git-credentials', url: 'https://github.com/cicd25/demo.git'
 
 
-		echo "${env.BRANCH_NAME}"	
+		echo "${env.branchName}"	
             }
         }
     
               
         stage("BUILD") {
 	    when {
-		  environment ignoreCase: true, name: 'BRANCH_NAME', value: 'master'
+		  environment ignoreCase: true, name: 'branchName', value: 'master'
 		}
 	    
             steps {
