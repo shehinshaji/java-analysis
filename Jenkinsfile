@@ -41,12 +41,16 @@ pipeline {
 			
 		    parallel 'unitTest' : {
 			echo "executing unit test cases......"	
+			sleep 10
+			
 		    },
 		    'systemTest' : {
 			echo "executing system test cases......"
+			error "SYSTEM TEST FAILED......"
 		    },
                     'securityTest' : {
 			echo "executing security test cases......"
+			sleep 20
 		    }	   	
 	    	}
       }
