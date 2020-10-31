@@ -59,10 +59,13 @@ pipeline {
         
     }
     post {
-	  always {
-	    echo "post built action............."
+	  success {
+   		echo "publish junit reports............."
 	  }
-	}	
+	  failure {
+	   	echo "trigger a mail to developer!......"
+	  }
+	}
     
 }
 
