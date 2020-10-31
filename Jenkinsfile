@@ -30,19 +30,17 @@ pipeline {
     
               
         stage("BUILD") {
-	    tools {
-  		maven 'maven363'
-	    }
-
+	    
             steps {
-		     script {
-			
-			echo """environment variable : ${env.REPORT}"""
-		        sh 'mvn --version'
-		        sh 'mvn clean compile'
-		        
-		        //currentBuild.result = 'FAILURE'
-		     }
+	     script {
+		try {
+			error "manually ternimat........"
+
+		} catch(e) {
+		   echo "Exception : ${e}"
+		   throw e		
+		}
+	     }
             }
         }
 
