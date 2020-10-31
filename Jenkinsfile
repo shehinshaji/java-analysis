@@ -31,10 +31,9 @@ pipeline {
               
         stage("BUILD") {
 	    when {
-	       anyOf {
-		    branch comparator: 'REGEXP', pattern: 'master'
+		  branch 'master'
 		}
-	    }	    
+	    
             steps {
 		echo "code compilation"	     
             }
