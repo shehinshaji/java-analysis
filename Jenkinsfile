@@ -30,7 +30,9 @@ pipeline {
     
               
         stage("BUILD") {
-	    
+	    when {
+	       branch 'development'
+	    }	    
             steps {
 		echo "code compilation"	     
             }
@@ -52,7 +54,7 @@ pipeline {
 			echo "executing security test cases......"
 			sleep 20
 		    },
-		    'failFast': true		   	
+		    'failFast': false		   	
 	    	}
       }
         
