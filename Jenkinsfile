@@ -51,7 +51,8 @@ pipeline {
                     'securityTest' : {
 			echo "executing security test cases......"
 			sleep 20
-		    }	   	
+		    },
+		    'failFast': true		   	
 	    	}
       }
         
