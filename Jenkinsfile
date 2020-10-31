@@ -30,13 +30,18 @@ pipeline {
     
               
         stage("BUILD") {
+	    tools {
+  		maven 'maven363'
+	    }
+
             steps {
 		     script {
 			
 			echo """environment variable : ${env.REPORT}"""
+		        sh 'mvn --version'
 		        sh 'mvn clean compile'
 		        
-		        currentBuild.result = 'FAILURE'
+		        //currentBuild.result = 'FAILURE'
 		     }
             }
         }
