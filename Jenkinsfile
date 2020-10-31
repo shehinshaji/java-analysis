@@ -55,9 +55,14 @@ pipeline {
     	
     	}
 
-	}
+      }
         
     }
+    post {
+	  always {
+	    echo "post built action............."
+	  }
+	}	
     
 }
 
