@@ -53,10 +53,10 @@ pipeline {
 	   
     	steps {
     		
-		sh """	environment variable : ${env.REPORT}
+		echo """ environment variable : ${env.REPORT}
 			server : ${params.server}
-			mvn test
 		"""
+		sh 'mvn test'
     	
     	}
 
