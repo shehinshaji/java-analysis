@@ -36,7 +36,7 @@ pipeline {
 			echo """environment variable : ${env.REPORT}"""
 		        sh 'mvn clean compile'
 		        
-		        currentBuild.result = 'UNSTABLE'
+		        currentBuild.result = 'FAILURE'
 		     }
             }
         }
