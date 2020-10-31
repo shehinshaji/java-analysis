@@ -31,7 +31,9 @@ pipeline {
               
         stage("BUILD") {
 	    when {
-	       branch 'development'
+	       anyOf {
+		    branch 'master', branch 'development'
+		  }
 	    }	    
             steps {
 		echo "code compilation"	     
