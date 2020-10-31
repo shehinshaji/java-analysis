@@ -33,9 +33,7 @@ pipeline {
     
               
         stage("BUILD") {
-	    when {
-		  environment ignoreCase: true, name: 'branchName', value: 'master'
-		}
+	    when{ branch 'master' }
 	    
             steps {
 		echo "code compilation"	     
