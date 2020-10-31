@@ -32,52 +32,28 @@ pipeline {
         stage("BUILD") {
 	    
             steps {
-		script {
-			mavenBuild()
-		}
-	     
+		echo "code compilation"	     
             }
         }
 
        stage('TEST') {
-	    environment {
-		    REPORT = "target/test"
-	    }
-	   
-    	steps {
-    		
-		echo """ environment variable : ${env.REPORT}
-			server : ${params.server}
-		"""
-                sh 'mvn --version'
-		sh 'mvn test'
-    	
-    	}
-
+    		steps {
+			
+		    parallel 'unitTest' : {
+			echo "executing unit test cases......"	
+		    },
+		    'systemTest' : {
+			echo "executing system test cases......"
+		    },
+                    'securityTest' : {
+			echo "executing security test cases......"
+		    }	   	
+	    	}
       }
         
-    }
-    post {
-	  success {
-   		echo "publish junit reports............."
-	  }
-	  failure {
-	   	echo "trigger a mail to developer!......"
-	  }
-	}
-    
+    }       
 }
 
-def mavenBuild() {
-
-	try {
-		error "manually ternimat........"
-
-	} catch(e) {
-	   echo "Exception : ${e}"
-	   throw e		
-	}	    
-}
 
 
 
