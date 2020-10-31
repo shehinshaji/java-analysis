@@ -56,6 +56,7 @@ pipeline {
 		echo """ environment variable : ${env.REPORT}
 			server : ${params.server}
 		"""
+                sh 'mvn --version'
 		sh 'mvn test'
     	
     	}
