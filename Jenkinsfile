@@ -25,13 +25,16 @@ pipeline {
         stage('SCM') {
             steps {
                 git branch: "${env.branchName}", credentialsId: 'git-credentials', url: 'https://github.com/cicd25/demo.git'
+
+
+		echo "${env.BRANCH_NAME}"	
             }
         }
     
               
         stage("BUILD") {
 	    when {
-		  branch 'master'
+		  environment ignoreCase: true, name: 'BRANCH_NAME', value: 'master'
 		}
 	    
             steps {
