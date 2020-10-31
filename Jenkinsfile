@@ -32,7 +32,7 @@ pipeline {
         stage("BUILD") {
 	    when {
 	       anyOf {
-		    branch 'master'
+		    branch comparator: 'REGEXP', pattern: 'master'
 		}
 	    }	    
             steps {
