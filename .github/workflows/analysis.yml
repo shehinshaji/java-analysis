@@ -1,0 +1,111 @@
+name: Code Quality Checks
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin' # Install the OpenJDK
+        java-version: '18'      # Adjust to your project’s Java version
+
+    - name: Run building the app
+      run: mvn -B clean package -DskipTests || echo "BUILD_ARTIFACT=true" >> $GITHUB_ENV
+
+    - name: Run Checkstyle with Google Checks
+      run: mvn checkstyle:check@google-checks -DskipTests || echo "CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
+
+    - name: Run Checkstyle with Custom Rules
+      run: mvn checkstyle:check@custom-checks -DskipTests || echo "CUSTOM_CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
+
+    - name: Run PMD CPD Check
+      run: mvn pmd:cpd-check -DskipTests || echo "PMD_CPD_FAILED=true" >> $GITHUB_ENV
+
+    - name: Run PMD Scan
+      run: mvn pmd:check -DskipTests || echo "PMD_SCAN_FAILED=true" >> $GITHUB_ENV
+
+    - name: Archive Checkstyle and PMD Reports
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-quality-reports
+        path: |
+          target/checkstyle-result.xml
+          target/pmd.xml
+          target/cpd.xml
+    - name: Show Failure if any check failed
+      if: env.CHECKSTYLE_FAILED == 'true' || env.CUSTOM_CHECKSTYLE_FAILED == 'true' || env.PMD_CPD_FAILED == 'true' || env.PMD_SCAN_FAILED == 'true' || env.BUILD_ARTIFACT == 'true'
+      run: |
+        if [ "$CHECKSTYLE_FAILED" == "true" ]; then
+          echo "Checkstyle with Google Checks failed."
+        fi
+        if [ "$CUSTOM_CHECKSTYLE_FAILED" == "true" ]; then
+          echo "Checkstyle with Custom Rules failed."
+        fi
+        if [ "$PMD_CPD_FAILED" == "true" ]; then
+          echo "PMD CPD Check failed."
+        fi
+        if [ "$PMD_SCAN_FAILED" == "true" ]; then
+          echo "PMD Scan failed."
+        fi
+        if [ "$BUILD_ARTIFACT" == "true" ]; then
+          echo "App artifact build failed."
+        fi
+        exit 1
+
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up JDK 18
+        uses: actions/setup-java@v1
+        with:
+          java-version: 18
+      - name: Install dependencies
+        run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      - name: Run tests and collect coverage
+        run: mvn -B test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    needs: code-quality
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x' # Use the latest Node.js version for release
+      - name: Install dependencies
+        run: npm clean-install
+      - name: Verify integrity
+        run: npm audit signatures
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
