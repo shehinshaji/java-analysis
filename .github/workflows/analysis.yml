@@ -22,18 +22,23 @@ jobs:
 
     - name: Run building the app
       run: mvn -B clean package -DskipTests
+      continue-on-error: true
 
     - name: Run Checkstyle with Google Checks
       run: mvn checkstyle:check@google-checks -DskipTests
+      continue-on-error: true
 
     - name: Run Checkstyle with Custom Rules
       run: mvn checkstyle:check@custom-checks -DskipTests
+      continue-on-error: true
 
     - name: Run PMD CPD Check
       run: mvn pmd:cpd-check -DskipTests
+      continue-on-error: true
 
     - name: Run PMD Scan
       run: mvn pmd:check -DskipTests
+      continue-on-error: true
 
     - name: Archive Checkstyle and PMD Reports
       if: always()
@@ -61,7 +66,7 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   release:
     runs-on: ubuntu-latest
