@@ -46,7 +46,23 @@ jobs:
           target/cpd.xml
     - name: Show Failure if any check failed
       if: env.CHECKSTYLE_FAILED == 'true' || env.CUSTOM_CHECKSTYLE_FAILED == 'true' || env.PMD_CPD_FAILED == 'true' || env.PMD_SCAN_FAILED == 'true' || env.BUILD_ARTIFACT == 'true'
-      run: exit 1
+      run: |
+        if [ "$CHECKSTYLE_FAILED" == "true" ]; then
+          echo "Checkstyle with Google Checks failed."
+        fi
+        if [ "$CUSTOM_CHECKSTYLE_FAILED" == "true" ]; then
+          echo "Checkstyle with Custom Rules failed."
+        fi
+        if [ "$PMD_CPD_FAILED" == "true" ]; then
+          echo "PMD CPD Check failed."
+        fi
+        if [ "$PMD_SCAN_FAILED" == "true" ]; then
+          echo "PMD Scan failed."
+        fi
+        if [ "$BUILD_ARTIFACT" == "true" ]; then
+          echo "App artifact build failed."
+        fi
+        exit 1
 
   unit-test:
     runs-on: ubuntu-latest
