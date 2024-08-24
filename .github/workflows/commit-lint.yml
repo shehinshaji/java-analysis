@@ -27,14 +27,14 @@ jobs:
           echo "export default { extends: ['@commitlint/config-conventional'] };" > commitlint.config.mjs
           ls
           pwd
-          cat commitlint.config.js
+          cat commitlint.config.mjs
 
       - name: Validate current commit (last commit) with commitlint
         if: github.event_name == 'push'
         run: |
           ls
           pwd
-          cat commitlint.config.js
+          cat commitlint.config.mjs
           npx commitlint --last --verbose
 
       - name: Validate PR commits with commitlint
