@@ -21,24 +21,19 @@ jobs:
         java-version: '18'      # Adjust to your project’s Java version
 
     - name: Run building the app
-      run: mvn -B clean package -DskipTests
-      continue-on-error: true
+      run: mvn -B clean package -DskipTests || echo "BUILD_ARTIFACT=true" >> $GITHUB_ENV
 
     - name: Run Checkstyle with Google Checks
-      run: mvn checkstyle:check@google-checks -DskipTests
-      continue-on-error: true
+      run: mvn checkstyle:check@google-checks -DskipTests || echo "CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
 
     - name: Run Checkstyle with Custom Rules
-      run: mvn checkstyle:check@custom-checks -DskipTests
-      continue-on-error: true
+      run: mvn checkstyle:check@custom-checks -DskipTests || echo "CUSTOM_CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
 
     - name: Run PMD CPD Check
-      run: mvn pmd:cpd-check -DskipTests
-      continue-on-error: true
+      run: mvn pmd:cpd-check -DskipTests || echo "PMD_CPD_FAILED=true" >> $GITHUB_ENV
 
     - name: Run PMD Scan
-      run: mvn pmd:check -DskipTests
-      continue-on-error: true
+      run: mvn pmd:check -DskipTests || echo "PMD_SCAN_FAILED=true" >> $GITHUB_ENV
 
     - name: Archive Checkstyle and PMD Reports
       if: always()
@@ -49,6 +44,9 @@ jobs:
           target/checkstyle-result.xml
           target/pmd.xml
           target/cpd.xml
+    - name: Show Failure if any check failed
+      if: env.CHECKSTYLE_FAILED == 'true' || env.CUSTOM_CHECKSTYLE_FAILED == 'true' || env.PMD_CPD_FAILED == 'true' || env.PMD_SCAN_FAILED == 'true' || env.BUILD_ARTIFACT == 'true'
+      run: exit 1
 
   unit-test:
     runs-on: ubuntu-latest
