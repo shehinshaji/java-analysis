@@ -27,7 +27,7 @@ jobs:
       run: mvn checkstyle:check@google-checks -DskipTests || echo "CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
       
     - name: Publish google Checkstyle Results
-      uses: reviewdog/action-checkstyle@v1
+      uses: reviewdog/action-checker@v1
       with:
         tool_name: checkstyle
         reporter: github-pr-review
