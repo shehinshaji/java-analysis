@@ -26,17 +26,6 @@ jobs:
     - name: Run Checkstyle with Google Checks
       run: mvn checkstyle:check@google-checks -DskipTests || echo "CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
       
-    - name: Report build results
-      uses: gmazzo/publish-report-annotations@v1
-      if: always()
-      with:
-          checkName: "Checkstyle Reports (omitting passed)"
-          reports: |
-            target/checkstyle-result.xml
-          testsSummary: full
-          filterPassedTests: true
-          detectFlakyTests: true
-      
     - name: Run Checkstyle with Custom Rules
       run: mvn checkstyle:check@custom-checks -DskipTests || echo "CUSTOM_CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
 
@@ -56,14 +45,18 @@ jobs:
           target/pmd.xml
           target/cpd.xml
 
-    - name: Publish Checkstyle report
-      uses: Juuxel/publish-checkstyle-report@v1
-      if: ${{ failure() || success() }}
+    - name: Report build results
+      uses: gmazzo/publish-report-annotations@v1
+      if: always()
       with:
-        reports: |
-          target/checkstyle-result.xml
-          target/cpd.xml
-          target/pmd.xml
+          checkName: "Checkstyle Reports (omitting passed)"
+          reports: |
+            target/checkstyle-result.xml
+            target/pmd.xml
+            target/cpd.xml
+          testsSummary: full
+          filterPassedTests: true
+          detectFlakyTests: true
 
     - name: Show Failure if any check failed
       if: env.CHECKSTYLE_FAILED == 'true' || env.CUSTOM_CHECKSTYLE_FAILED == 'true' || env.PMD_CPD_FAILED == 'true' || env.PMD_SCAN_FAILED == 'true' || env.BUILD_ARTIFACT == 'true'
@@ -106,20 +99,17 @@ jobs:
         uses: codecov/codecov-action@v4
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
+      
+      - name: Report build results
+        uses: gmazzo/publish-report-annotations@v1
         if: always()
         with:
-          files: |
-            target/surefire-reports/TEST-*.xml
-
-      - name: Publish Checkstyle report
-        uses: Juuxel/publish-checkstyle-report@v1
-        if: ${{ failure() || success() }}
-        with:
-          reports: |
-            target/surefire-reports/TEST-*.xml
+            checkName: "Checkstyle Reports (omitting passed)"
+            reports: |
+              target/surefire-reports/TEST-*.xml
+            testsSummary: full
+            filterPassedTests: true
+            detectFlakyTests: true
 
   release:
     runs-on: ubuntu-latest
