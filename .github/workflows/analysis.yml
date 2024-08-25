@@ -25,15 +25,27 @@ jobs:
 
     - name: Run Checkstyle with Google Checks
       run: mvn checkstyle:check@google-checks -DskipTests || echo "CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
-
+    - uses: lcollins/checkstyle-github-action@v3.1.0
+      with:
+        path: 'target/checkstyle-result.xml'
+    
     - name: Run Checkstyle with Custom Rules
       run: mvn checkstyle:check@custom-checks -DskipTests || echo "CUSTOM_CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
+    - uses: lcollins/checkstyle-github-action@v3.1.0
+      with:
+        path: 'target/checkstyle-result.xml'
 
     - name: Run PMD CPD Check
       run: mvn pmd:cpd-check -DskipTests || echo "PMD_CPD_FAILED=true" >> $GITHUB_ENV
+    - uses: lcollins/checkstyle-github-action@v3.1.0
+      with:
+        path: 'target/cpd.xml'
 
     - name: Run PMD Scan
       run: mvn pmd:check -DskipTests || echo "PMD_SCAN_FAILED=true" >> $GITHUB_ENV
+    - uses: lcollins/checkstyle-github-action@v3.1.0
+      with:
+        path: 'target/pmd.xml'
 
     - name: Archive Checkstyle and PMD Reports
       if: always()
@@ -41,15 +53,6 @@ jobs:
       with:
         name: code-quality-reports
         path: |
-          target/checkstyle-result.xml
-          target/pmd.xml
-          target/cpd.xml
-
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      if: always()
-      with:
-        files: |
           target/checkstyle-result.xml
           target/pmd.xml
           target/cpd.xml
