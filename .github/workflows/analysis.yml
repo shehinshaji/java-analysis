@@ -26,6 +26,17 @@ jobs:
     - name: Run Checkstyle with Google Checks
       run: mvn checkstyle:check@google-checks -DskipTests || echo "CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
       
+    - name: Report build results
+      uses: gmazzo/publish-report-annotations@v1
+      if: always()
+      with:
+          checkName: "Checkstyle Reports (omitting passed)"
+          reports: |
+            target/checkstyle-result.xml
+          testsSummary: full
+          filterPassedTests: true
+          detectFlakyTests: true
+      
     - name: Run Checkstyle with Custom Rules
       run: mvn checkstyle:check@custom-checks -DskipTests || echo "CUSTOM_CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
 
