@@ -107,7 +107,6 @@ jobs:
       - name: Create .releaserc file
         run: |
           echo '{
-            "branches": ["master"],
             "plugins": [
               "@semantic-release/commit-analyzer",
               "@semantic-release/release-notes-generator",
@@ -119,4 +118,4 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release --branches master
+        run: npx semantic-release --branches main
