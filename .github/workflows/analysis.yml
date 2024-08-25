@@ -105,15 +105,15 @@ jobs:
       - name: Modify package.json
         run: jq '.name = "java-analysis" | .version = "1.0.0"' package.json > tmp.json && mv tmp.json package.json
       - name: Create .releaserc file
-      run: |
-        echo '{
-          "branches": ["master"],
-          "plugins": [
-            "@semantic-release/commit-analyzer",
-            "@semantic-release/release-notes-generator",
-            "@semantic-release/github"
-          ]
-        }' > .releaserc
+        run: |
+          echo '{
+            "branches": ["master"],
+            "plugins": [
+              "@semantic-release/commit-analyzer",
+              "@semantic-release/release-notes-generator",
+              "@semantic-release/github"
+            ]
+          }' > .releaserc
       - name: Verify integrity
         run: npm audit signatures
       - name: Release
