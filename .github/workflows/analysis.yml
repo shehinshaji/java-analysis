@@ -26,15 +26,13 @@ jobs:
     - name: Run Checkstyle with Google Checks
       run: mvn checkstyle:check@google-checks -DskipTests || echo "CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
       
-    - name: Publish google Checkstyle Results
-      uses: reviewdog/action-checker@v1
+    - name: Publish Checkstyle report
+      uses: Juuxel/publish-checkstyle-report@v1
+      if: ${{ failure() || success() }}
       with:
-        tool_name: checkstyle
-        reporter: github-pr-review
-        level: error
-        fail_on_error: true
-        input_file: target/checkstyle-result.xml
-        
+        reports: |
+          target/checkstyle-result.xml 
+
     - name: Run Checkstyle with Custom Rules
       run: mvn checkstyle:check@custom-checks -DskipTests || echo "CUSTOM_CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
     - uses: jwgmeligmeyling/checkstyle-github-action@master
