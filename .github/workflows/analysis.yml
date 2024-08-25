@@ -44,6 +44,16 @@ jobs:
           target/checkstyle-result.xml
           target/pmd.xml
           target/cpd.xml
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: |
+          target/checkstyle-result.xml
+          target/pmd.xml
+          target/cpd.xml
+
     - name: Show Failure if any check failed
       if: env.CHECKSTYLE_FAILED == 'true' || env.CUSTOM_CHECKSTYLE_FAILED == 'true' || env.PMD_CPD_FAILED == 'true' || env.PMD_SCAN_FAILED == 'true' || env.BUILD_ARTIFACT == 'true'
       run: |
@@ -81,6 +91,12 @@ jobs:
         uses: codecov/codecov-action@v4
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            target/surefire-reports/TEST-*.xml
 
   release:
     runs-on: ubuntu-latest
