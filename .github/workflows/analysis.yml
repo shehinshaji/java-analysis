@@ -101,9 +101,7 @@ jobs:
         with:
           node-version: '22.x' # Use the latest Node.js version for release
       - name: Install dependencies
-        run: |
-          npm install
-          npm clean-install
+        run: npm install semantic-release
       - name: Verify integrity
         run: npm audit signatures
       - name: Release
