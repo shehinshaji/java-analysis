@@ -101,7 +101,7 @@ jobs:
         with:
           node-version: '22.x' # Use the latest Node.js version for release
       - name: Install dependencies
-        run: npm install semantic-release/commit-analyzer semantic-release/release-notes-generator semantic-release/github
+        run: npm install -g semantic-release/commit-analyzer semantic-release/release-notes-generator semantic-release/github
       - name: Modify package.json
         run: jq '.name = "java-analysis" | .version = "1.0.0"' package.json > tmp.json && mv tmp.json package.json
       - name: Verify integrity
