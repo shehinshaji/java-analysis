@@ -101,11 +101,21 @@ jobs:
         with:
           node-version: '22.x' # Use the latest Node.js version for release
       - name: Install dependencies
-        run: npm install -g semantic-release semantic-release/commit-analyzer @semantic-release/exec semantic-release/release-notes-generator semantic-release/github
-          #      - name: Modify package.json
-          #        run: jq '.name = "java-analysis" | .version = "1.0.0"' package.json > tmp.json && mv tmp.json package.json
-          #      - name: Verify integrity
-          #        run: npm audit signatures
+        run: npm install semantic-release
+      - name: Modify package.json
+        run: jq '.name = "java-analysis" | .version = "1.0.0"' package.json > tmp.json && mv tmp.json package.json
+      - name: Create .releaserc file
+      run: |
+        echo '{
+          "branches": ["master"],
+          "plugins": [
+            "@semantic-release/commit-analyzer",
+            "@semantic-release/release-notes-generator",
+            "@semantic-release/github"
+          ]
+        }' > .releaserc
+      - name: Verify integrity
+        run: npm audit signatures
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
