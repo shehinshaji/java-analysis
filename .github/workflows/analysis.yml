@@ -25,10 +25,13 @@ jobs:
 
     - name: Run Checkstyle with Google Checks
       run: mvn checkstyle:check@google-checks -DskipTests || echo "CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
-    - uses: 5monkeys/cobertura-action@master
+      uses: reviewdog/action-checkstyle@v1
       with:
-        path: target/checkstyle-result.xml
-        minimum_coverage: 75
+        tool_name: checkstyle
+        reporter: github-pr-review
+        level: error
+        fail_on_error: true
+        input_file: target/checkstyle-result.xml
     
     - name: Run Checkstyle with Custom Rules
       run: mvn checkstyle:check@custom-checks -DskipTests || echo "CUSTOM_CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
