@@ -102,7 +102,7 @@ jobs:
           node-version: '22.x' # Use the latest Node.js version for release
       - name: Install dependencies
         run: npm install semantic-release
-      - name: Modify package.json
+      - name: Modify package.json io add version and package name
         run: jq '.name = "java-analysis" | .version = "1.0.0"' package.json > tmp.json && mv tmp.json package.json
       - name: Create .releaserc file
         run: |
