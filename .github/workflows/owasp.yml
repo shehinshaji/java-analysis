@@ -11,14 +11,25 @@ jobs:
       - name: Build project with Maven
         run: mvn clean install
 
-      - name: Depcheck
+      - name: Dependency check in html
         uses: dependency-check/Dependency-Check_Action@main
-        id: Depcheck
+        id: Depcheckhtml
         with:
-          project: 'vulnerability test'
+          project: 'vulnerability test html'
           path: '.'
-          format: 'XML,HTML'
-          out: 'reports' # this is the default, no need to specify unless you wish to override it
+          format: 'HTML'
+          out: 'reports'
+          args: >
+            --enableRetired
+
+      - name: Dependency check in xml
+        uses: dependency-check/Dependency-Check_Action@main
+        id: Depcheckxml
+        with:
+          project: 'vulnerability test xml'
+          path: '.'
+          format: 'XML'
+          out: 'reports'
           args: >
             --enableRetired
 
