@@ -45,11 +45,11 @@ jobs:
           target/pmd.xml
           target/cpd.xml
 
-    - name: Report build results
+    - name: Report checkstyle and pmd analysis results
       uses: gmazzo/publish-report-annotations@v1
       if: always()
       with:
-          checkName: "Checkstyle Reports (omitting passed)"
+          checkName: "Checkstyle And Pmd Analysis Reports (omitting passed)"
           reports: |
             target/checkstyle-result.xml
             target/pmd.xml
@@ -100,11 +100,11 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       
-      - name: Report build results
+      - name: Report unit tests results
         uses: gmazzo/publish-report-annotations@v1
         if: always()
         with:
-            checkName: "Checkstyle Reports (omitting passed)"
+            checkName: "Unit tests Reports (omitting passed)"
             reports: |
               target/surefire-reports/TEST-*.xml
             testsSummary: full
