@@ -17,23 +17,27 @@ jobs:
     - name: Set up Java
       uses: actions/setup-java@v3
       with:
-        distribution: 'temurin' # Install the OpenJDK
-        java-version: '18'      # Adjust to your project’s Java version
+        distribution: 'temurin'
+        java-version: '18'
 
     - name: Run building the app
-      run: mvn -B clean package -DskipTests || echo "BUILD_ARTIFACT=true" >> $GITHUB_ENV
+      run: mvn -B clean package -DskipTests
 
     - name: Run Checkstyle with Google Checks
-      run: mvn checkstyle:check@google-checks -DskipTests || echo "CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
+      if: always()
+      run: mvn checkstyle:check@google-checks -DskipTests
       
     - name: Run Checkstyle with Custom Rules
-      run: mvn checkstyle:check@custom-checks -DskipTests || echo "CUSTOM_CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
+      if: always()
+      run: mvn checkstyle:check@custom-checks -DskipTests
 
     - name: Run PMD CPD Check
-      run: mvn pmd:cpd-check -DskipTests || echo "PMD_CPD_FAILED=true" >> $GITHUB_ENV
+      if: always()
+      run: mvn pmd:cpd-check -DskipTests
 
     - name: Run PMD Scan
-      run: mvn pmd:check -DskipTests || echo "PMD_SCAN_FAILED=true" >> $GITHUB_ENV
+      if: always()
+      run: mvn pmd:check -DskipTests
 
     - name: Archive Checkstyle and PMD Reports
       if: always()
@@ -58,25 +62,16 @@ jobs:
           filterPassedTests: true
           detectFlakyTests: true
 
-    - name: Show Failure if any check failed
-      if: env.CHECKSTYLE_FAILED == 'true' || env.CUSTOM_CHECKSTYLE_FAILED == 'true' || env.PMD_CPD_FAILED == 'true' || env.PMD_SCAN_FAILED == 'true' || env.BUILD_ARTIFACT == 'true'
-      run: |
-        if [ "$CHECKSTYLE_FAILED" == "true" ]; then
-          echo "Checkstyle with Google Checks failed."
-        fi
-        if [ "$CUSTOM_CHECKSTYLE_FAILED" == "true" ]; then
-          echo "Checkstyle with Custom Rules failed."
-        fi
-        if [ "$PMD_CPD_FAILED" == "true" ]; then
-          echo "PMD CPD Check failed."
-        fi
-        if [ "$PMD_SCAN_FAILED" == "true" ]; then
-          echo "PMD Scan failed."
-        fi
-        if [ "$BUILD_ARTIFACT" == "true" ]; then
-          echo "App artifact build failed."
-        fi
-        exit 1
+    - name: Publish Analysis Results
+      if: always()
+      uses: garyttierney/analysis-publisher@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+      args: >
+        --report-type=checkstyle --path=target/checkstyle-result.xml
+        --report-type=pmd --path=target/pmd.xml
+        --report-type=cpd --path=target/cpd.xml
+        --publisher=github_check
 
   unit-test:
     runs-on: ubuntu-latest
