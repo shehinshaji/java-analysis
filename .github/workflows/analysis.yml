@@ -65,11 +65,8 @@ jobs:
     - name: Publish Analysis Results
       if: always()
       uses: garyttierney/analysis-publisher@master
-      args: |
-        --report-type=checkstyle --path=target/checkstyle-result.xml
-        --report-type=pmd --path=target/pmd.xml
-        --report-type=cpd --path=target/cpd.xml
-        --publisher=github_check
+      args:
+        - "--report-type=checkstyle", "--path=target/checkstyle-result.xml", "--report-type=pmd", "--path=target/pmd.xml", "--report-type=cpd", "--path=target/cpd.xml", "--publisher=github_check"
 
   unit-test:
     runs-on: ubuntu-latest
