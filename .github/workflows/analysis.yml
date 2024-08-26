@@ -65,8 +65,6 @@ jobs:
     - name: Publish Analysis Results
       if: always()
       uses: garyttierney/analysis-publisher@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
       args: >
         --report-type=checkstyle --path=target/checkstyle-result.xml
         --report-type=pmd --path=target/pmd.xml
