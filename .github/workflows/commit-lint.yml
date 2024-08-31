@@ -26,7 +26,7 @@ jobs:
           npm install @commitlint/{cli,config-conventional}
           echo "export default { extends: ['@commitlint/config-conventional'] };" > commitlint.config.mjs
 
-      - name: Validate current commit (last commit) with commitlint.
+      - name: Validate current commit (last commit) with commitlint
         if: github.event_name == 'push'
         run: npx commitlint --last --verbose
 
