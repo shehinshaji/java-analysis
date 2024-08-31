@@ -1,0 +1,160 @@
+name: Notify on Github Workflow Changes
+
+on:
+  push:
+    paths:
+      - ".github/workflows/**"
+  pull_request:
+    paths:
+      - ".github/workflows/**"
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get commit details
+        if: github.event_name == 'push'
+        id: get-commits-push
+        run: |
+          if [ -z "${{ github.event.before }}" ]; then
+            echo "This is the first push to the branch."
+            COMMITS=$(git log --pretty=format:"%h: %s" ${{ github.sha }} -- .github/workflows/)
+          else
+            echo "Fetching commit details for push event..."
+            COMMITS=$(git log --pretty=format:"%h: %s" ${{ github.event.before }}..${{ github.sha }} -- .github/workflows/)
+          fi
+
+          if [ -n "$COMMITS" ]; then
+            echo "Commits affecting .github/workflows directory:"
+            echo "$COMMITS"
+          else
+            echo "No commits affecting .github/workflows directory."
+          fi
+          echo "Commits: $COMMITS"
+          BRANCH_NAME=${{ github.ref_name }}
+
+          echo "COMMITS=$COMMITS" >> $GITHUB_ENV
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          echo "$COMMITS"
+
+      - name: Get commit details for PR event
+        if: github.event_name == 'pull_request'
+        id: get-commits-pr
+        run: |
+          echo "Fetching commit details for pull request event..."
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          COMMIT=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/commits" | \
+          jq -r '.[] | "\(.sha[0:7]): \(.commit.message)"')
+
+          if [ -z "$COMMIT" ]; then
+            echo "No commits found or COMMITS is empty."
+          else
+            echo "Commits:"
+            echo "$COMMIT"
+
+            echo "COMMITS<<EOF" >> $GITHUB_ENV
+            echo -e "$COMMIT\n" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
+
+            echo "$COMMITS"
+
+          fi
+ 
+          echo "$COMMITS"
+          echo "BRANCH_NAME=${{ github.head_ref }}" >> $GITHUB_ENV
+
+      - name: Get changed files in the .github/workflows directory
+        if: github.event_name == 'push'
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v45
+        with:
+          files: .github/workflows/**
+
+      - name: Run step if any file(s) in the .github/workflows directory change
+        if: github.event_name == 'push' && steps.changed-files-specific.outputs.any_changed == 'true'
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files-specific.outputs.all_changed_files }}
+        run: |
+          echo "One or more files in the .github/workflows directory has changed."
+          echo "List of all the files that have changed: $ALL_CHANGED_FILES"
+          CHANGED_FILES="${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+          echo "$CHANGED_FILES"
+
+      - name: Get changed files in PR
+        if: github.event_name == 'pull_request'
+        id: changed-files-pr
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          CHANGED_FILE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/files" | \
+            jq -r '.[] | select(.filename | startswith(".github/workflows/")) | .filename')
+
+          if [ -z "$CHANGED_FILE" ]; then
+            echo "No changed files found in .github/workflows directory."
+          else
+            echo "Changed files:"
+            echo "$CHANGED_FILE"
+          
+            echo "CHANGED_FILES<<EOF" >> $GITHUB_ENV
+            echo -e "$CHANGED_FILE\n" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
+
+            echo "$CHANGED_FILES"
+          fi
+
+          echo "$CHANGED_FILES"
+
+      - name: Construct file URLs
+        run: |
+          FILE_URLS=""
+          for file in ${{ env.CHANGED_FILES }}; do
+            FILE_URLS="${FILE_URLS}https://github.com/${{ github.repository }}/blob/${{ env.BRANCH_NAME }}/${file}\n"
+          done
+
+          FILE_URLS=$(echo -e "$FILE_URLS" | sed '/^$/d' | sed '$!s/$/\n/')
+          
+          echo "FILE_URLS<<EOF" >> $GITHUB_ENV
+          echo -e "$FILE_URLS\n" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "Attempt to Modify GitHub Workflow"
+          body: |
+            Hi Devops Team,
+
+            ${{ github.actor }} has made an modification in GitHub Actions workflows of ${{github.repository}} repository.
+
+            Branch Name :-
+
+            ${{ env.BRANCH_NAME }}
+
+            Following are the corresponding Commits :-
+            
+            ${{ env.COMMITS }}
+
+            Following are the corresponding modified files :-
+            
+            ${{ env.CHANGED_FILES }}
+
+            Following are the url links to the modified files :-
+
+            ${{ env.FILE_URLS }}
+
+            Thank you
+            GitHub Actions
+          to: ${{ secrets.EMAIL_RECIPIENT }}
+          from: ${{ secrets.SMTP_USERNAME }}
