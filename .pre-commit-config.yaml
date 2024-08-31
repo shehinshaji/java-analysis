@@ -1,0 +1,21 @@
+fail_fast: true
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: no-commit-to-branch
+        args: [--branch, main, --branch, uat, --branch, dev]
+      - id: no-commit-to-branch
+        name: checking branch name pattern
+        args: [--pattern, '^(?!(feature|fix|hotfix)\/[a-zA-Z0-9._-]+).*$']
+      - id: check-merge-conflict
+      - id: check-case-conflict
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.4.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [ commit-msg ]
+        args: [ --force-scope, feat, fix, docs, refactor, style, test, perf, chore, BREAKING CHANGE ]

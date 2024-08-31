@@ -3,24 +3,49 @@ on: [push, pull_request]
 jobs:
   depchecktest:
     runs-on: ubuntu-latest
-    name: depecheck_test
+    name: Owasp dependency vulnerability test
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Build project with Maven
         run: mvn clean install
-      - name: Depcheck
+
+      - name: Dependency check in html
         uses: dependency-check/Dependency-Check_Action@main
-        id: Depcheck
+        id: Depcheckhtml
         with:
-          project: 'vulnerability test'
+          project: 'vulnerability test html'
           path: '.'
           format: 'HTML'
-          out: 'reports' # this is the default, no need to specify unless you wish to override it
+          out: 'reports'
           args: >
             --enableRetired
+
       - name: Upload Test results
         uses: actions/upload-artifact@master
         with:
            name: Depcheck report
            path: ${{github.workspace}}/reports
+
+      - name: Dependency check in xml
+        uses: dependency-check/Dependency-Check_Action@main
+        id: Depcheckxml
+        with:
+          project: 'vulnerability test xml'
+          path: '.'
+          format: 'XML'
+          out: 'reports'
+          args: >
+            --enableRetired
+
+      - name: Report dependency vulnerability test results
+        uses: gmazzo/publish-report-annotations@v1
+        if: always()
+        with:
+            checkName: "Dependency Vulnerability Report (omitting passed)"
+            reports: |
+              reports/dependency-check-report.xml
+            testsSummary: full
+            filterPassedTests: true
+            detectFlakyTests: true
