@@ -96,7 +96,7 @@ jobs:
 
           
           echo "CHANGED_FILES<<EOF" >> $GITHUB_ENV
-          echo "$CHANGED_FILES" >> $GITHUB_ENV
+          echo -e "$CHANGED_FILES" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
           echo "$CHANGED_FILES"
@@ -134,7 +134,7 @@ jobs:
           done
 
           echo "FILE_URLS<<EOF" >> $GITHUB_ENV
-          echo "$FILE_URLS" >> $GITHUB_ENV
+          echo -e "$FILE_URLS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
           echo "$FILE_URLS"
