@@ -38,7 +38,10 @@ jobs:
           echo "Commits: $COMMITS"
           BRANCH_NAME=${{ github.ref_name }}
 
-          echo "COMMITS=$COMMITS" >> $GITHUB_ENV
+          echo "COMMITS<<EOF" >> $GITHUB_ENV
+          echo "$COMMITS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
           echo "$COMMITS"
 
@@ -48,18 +51,18 @@ jobs:
         run: |
           echo "Fetching commit details for pull request event..."
           PR_NUMBER=${{ github.event.pull_request.number }}
-          COMMIT=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          COMMITS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/commits" | \
           jq -r '.[] | "\(.sha[0:7]): \(.commit.message)"')
 
-          if [ -z "$COMMIT" ]; then
+          if [ -z "$COMMITS" ]; then
             echo "No commits found or COMMITS is empty."
           else
             echo "Commits:"
-            echo "$COMMIT"
+            echo "$COMMITS"
 
             echo "COMMITS<<EOF" >> $GITHUB_ENV
-            echo -e "$COMMIT\n" >> $GITHUB_ENV
+            echo "$COMMITS" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
 
             echo "$COMMITS"
@@ -84,7 +87,11 @@ jobs:
           echo "One or more files in the .github/workflows directory has changed."
           echo "List of all the files that have changed: $ALL_CHANGED_FILES"
           CHANGED_FILES="${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+          
+          echo "CHANGED_FILES<<EOF" >> $GITHUB_ENV
+          echo "$CHANGED_FILES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
           echo "$CHANGED_FILES"
 
       - name: Get changed files in PR
@@ -92,18 +99,18 @@ jobs:
         id: changed-files-pr
         run: |
           PR_NUMBER=${{ github.event.pull_request.number }}
-          CHANGED_FILE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          CHANGED_FILES=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/files" | \
             jq -r '.[] | select(.filename | startswith(".github/workflows/")) | .filename')
 
-          if [ -z "$CHANGED_FILE" ]; then
+          if [ -z "$CHANGED_FILES" ]; then
             echo "No changed files found in .github/workflows directory."
           else
             echo "Changed files:"
-            echo "$CHANGED_FILE"
+            echo "$CHANGED_FILES"
           
             echo "CHANGED_FILES<<EOF" >> $GITHUB_ENV
-            echo -e "$CHANGED_FILE\n" >> $GITHUB_ENV
+            echo "$CHANGED_FILES" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
 
             echo "$CHANGED_FILES"
@@ -142,6 +149,10 @@ jobs:
             Branch Name :-
 
             ${{ env.BRANCH_NAME }}
+
+            Event :-
+
+            ${{github.event_name}}
 
             Following are the corresponding Commits :-
             
