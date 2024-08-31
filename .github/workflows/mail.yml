@@ -125,6 +125,8 @@ jobs:
           echo "$FILE_URLS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
+          echo "$FILE_URLS"
+
 
       - name: Send email notification
         uses: dawidd6/action-send-mail@v3
