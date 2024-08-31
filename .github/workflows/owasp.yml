@@ -39,7 +39,7 @@ jobs:
           args: >
             --enableRetired
 
-      - name: Report dependency vulnerability test results
+      - name: Report dependency vulnerability tests results
         uses: gmazzo/publish-report-annotations@v1
         if: always()
         with:
