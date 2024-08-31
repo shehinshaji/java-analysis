@@ -20,7 +20,7 @@ jobs:
         distribution: 'temurin' # Install the OpenJDK
         java-version: '18'      # Adjust to your project’s Java version
 
-    - name: Run building the app
+    - name: Run building the app.
       run: mvn -B clean package -DskipTests || echo "BUILD_ARTIFACT=true" >> $GITHUB_ENV
 
     - name: Run Checkstyle with Google Checks
