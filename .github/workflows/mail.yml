@@ -115,13 +115,13 @@ jobs:
         run: |
           FILE_URLS=""
           for file in ${{ env.CHANGED_FILES }}; do
-            FILE_URLS="${FILE_URLS}https://github.com/${{ github.repository }}/blob/${{ env.BRANCH_NAME }}/${file}\n"
+            FILE_URLS="${FILE_URLS}\nhttps://github.com/${{ github.repository }}/blob/${{ env.BRANCH_NAME }}/${file}\n"
           done
 
-          FILE_URLS=$(echo -e "$FILE_URLS" | sed '/^$/d' | sed '$!s/$/\n/')
+          #          FILE_URLS=$(echo -e "$FILE_URLS" | sed '/^$/d' | sed '$!s/$/\n/')
           
           echo "FILE_URLS<<EOF" >> $GITHUB_ENV
-          echo -e "$FILE_URLS\n" >> $GITHUB_ENV
+          echo "$FILE_URLS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
 
