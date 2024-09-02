@@ -21,9 +21,11 @@ jobs:
         if: github.event_name == 'push'
         id: get-commits-push
         run: |
-          if [ -z "${{ github.event.before }}" ]; then
+          if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
             echo "This is the first push to the branch."
-            COMMITS=$(git log --pretty=format:"%h: %s" ${{ github.sha }} -- .github/workflows/)
+            git branch -r
+            git branch -a
+            COMMITS=$(git log --pretty=format:"%h: %s" master..${{ github.ref_name }} -- .github/workflows/)
           else
             echo "Fetching commit details for push event..."
             COMMITS=$(git log --pretty=format:"%h: %s" ${{ github.event.before }}..${{ github.sha }} -- .github/workflows/)
@@ -68,7 +70,7 @@ jobs:
             echo "$COMMITS"
 
           fi
- 
+
           echo "$COMMITS"
           echo "BRANCH_NAME=${{ github.head_ref }}" >> $GITHUB_ENV
 
@@ -87,14 +89,14 @@ jobs:
           echo "One or more files in the .github/workflows directory has changed."
           echo "List of all the files that have changed: $ALL_CHANGED_FILES"
             #          CHANGED_FILES="${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          
+
           CHANGED_FILES=""
           CHANGED_FILE_LIST=$(echo "${{ env.ALL_CHANGED_FILES }}" | tr '\n' ' ')
           for file in $CHANGED_FILE_LIST; do
             CHANGED_FILES="${CHANGED_FILES}${file}\n"
           done
 
-          
+
           echo "CHANGED_FILES<<EOF" >> $GITHUB_ENV
           echo -e "$CHANGED_FILES" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -115,7 +117,7 @@ jobs:
           else
             echo "Changed files:"
             echo "$CHANGED_FILES"
-          
+
             echo "CHANGED_FILES<<EOF" >> $GITHUB_ENV
             echo "$CHANGED_FILES" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
@@ -166,11 +168,11 @@ jobs:
             ${{github.event_name}}
 
             Following are the corresponding Commits :-
-            
+
             ${{ env.COMMITS }}
 
             Following are the corresponding modified files :-
-            
+
             ${{ env.CHANGED_FILES }}
 
             Following are the url links to the modified files :-
