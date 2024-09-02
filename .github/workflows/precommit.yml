@@ -22,5 +22,5 @@ jobs:
           pre-commit install --hook-type commit-msg
           pip install conventional-pre-commit
 
-      - name: Run Pre-Commit
+      - name: Run Pre-Commit test
         run: pre-commit run --all-files
