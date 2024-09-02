@@ -23,7 +23,7 @@ jobs:
         run: |
           if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
             echo "This is the first push to the branch."
-            COMMITS=$(git log --pretty=format:"%h: %s" origin/master..${{ github.ref_name }} -- .github/workflows/)
+            COMMITS=$(git log --pretty=format:"%h: %s" ${{ github.event.commits[0].id }}..${{ github.event.commits[-1].id }} -- .github/workflows/)
           else
             echo "Fetching commit details for push event..."
             COMMITS=$(git log --pretty=format:"%h: %s" ${{ github.event.before }}..${{ github.sha }} -- .github/workflows/)
@@ -72,21 +72,40 @@ jobs:
           echo "$COMMITS"
           echo "BRANCH_NAME=${{ github.head_ref }}" >> $GITHUB_ENV
 
+      - name: Check if it's the first push to the branch
+        id: is-first-push
+        run: |
+          if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+            echo "IS_FIRST_PUSH=true" >> $GITHUB_ENV
+          else
+            echo "IS_FIRST_PUSH=false" >> $GITHUB_ENV
+          fi
+
+      - name: Get changed files for first push
+        if: github.event_name == 'push' && env.IS_FIRST_PUSH == 'true'
+        run: |
+          CHANGED_FILES=$(git diff --name-only --diff-filter=d "${{ github.event.commits[0].id }}" "${{ github.event.commits[-1].id }}")
+
+          echo "CHANGED_FILES<<EOF" >> $GITHUB_ENV
+          echo -e "$CHANGED_FILES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+          echo "$CHANGED_FILES"
+
       - name: Get changed files in the .github/workflows directory
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && env.IS_FIRST_PUSH == 'false'
         id: changed-files-specific
         uses: tj-actions/changed-files@v45
         with:
           files: ".github/workflows/**"
 
       - name: Run step if any file(s) in the .github/workflows directory change
-        if: github.event_name == 'push' && steps.changed-files-specific.outputs.any_changed == 'true'
+        if: github.event_name == 'push' && steps.changed-files-specific.outputs.any_changed == 'true' && env.IS_FIRST_PUSH == 'false'
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files-specific.outputs.all_changed_files }}
         run: |
           echo "One or more files in the .github/workflows directory has changed."
           echo "List of all the files that have changed: $ALL_CHANGED_FILES"
-            #          CHANGED_FILES="${{ steps.changed-files-specific.outputs.all_changed_files }}"
 
           CHANGED_FILES=""
           CHANGED_FILE_LIST=$(echo "${{ env.ALL_CHANGED_FILES }}" | tr '\n' ' ')
