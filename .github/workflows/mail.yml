@@ -77,7 +77,7 @@ jobs:
         id: changed-files-specific
         uses: tj-actions/changed-files@v45
         with:
-          files: .github/workflows/**
+          files: ".github/workflows/**"
 
       - name: Run step if any file(s) in the .github/workflows directory change
         if: github.event_name == 'push' && steps.changed-files-specific.outputs.any_changed == 'true'
