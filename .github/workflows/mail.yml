@@ -23,9 +23,7 @@ jobs:
         run: |
           if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
             echo "This is the first push to the branch."
-            git branch -r
-            git branch -a
-            COMMITS=$(git log --pretty=format:"%h: %s" master..${{ github.ref_name }} -- .github/workflows/)
+            COMMITS=$(git log --pretty=format:"%h: %s" origin/master..${{ github.ref_name }} -- .github/workflows/)
           else
             echo "Fetching commit details for push event..."
             COMMITS=$(git log --pretty=format:"%h: %s" ${{ github.event.before }}..${{ github.sha }} -- .github/workflows/)
