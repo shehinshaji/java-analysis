@@ -23,7 +23,7 @@ jobs:
         run: |
           if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
             echo "This is the first push to the branch."
-            COMMITS=$(git log --pretty=format:"%h: %s" ${{ github.event.commits[0].id }}..${{ github.sha }} -- .github/workflows/)
+            COMMITS=$(git log --pretty=format:"%h: %s" ${{ github.event.commits[0].id }}^..${{ github.sha }} -- .github/workflows/)
           else
             echo "Fetching commit details for push event..."
             COMMITS=$(git log --pretty=format:"%h: %s" ${{ github.event.before }}..${{ github.sha }} -- .github/workflows/)
@@ -84,7 +84,7 @@ jobs:
       - name: Get changed files for first push
         if: github.event_name == 'push' && env.IS_FIRST_PUSH == 'true'
         run: |
-          CHANGED_FILES=$(git diff --name-only --diff-filter=d "${{ github.event.commits[0].id }}~1" "${{ github.sha }}")
+          CHANGED_FILES=$(git log --name-only --pretty="" ${{ github.event.commits[0].id }}^..${{ github.sha }} | sort | uniq)
 
           echo "CHANGED_FILES<<EOF" >> $GITHUB_ENV
           echo -e "$CHANGED_FILES" >> $GITHUB_ENV
