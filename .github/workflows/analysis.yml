@@ -21,6 +21,7 @@ jobs:
           MSSQL_PID: Developer
           MSSQL_DATABASE: smsNotifiy
         options: >-
+          --name sqlserver-container
           --health-cmd "/opt/mssql-tools18/bin/sqlcmd -C -U SA -P G3n!usP@ssw0rd -Q 'SELECT 1'"
           --health-interval 10s
           --health-timeout 5s
@@ -39,7 +40,7 @@ jobs:
     - name: Wait for SQL Server to start
       run: |
           echo "Waiting for SQL Server to start..."
-          until /opt/mssql-tools18/bin/sqlcmd -C -U SA -P G3n!usP@ssw0rd -Q "SELECT 1" -b -o /dev/null; do
+          until docker exec sqlserver-container /opt/mssql-tools18/bin/sqlcmd -C -U SA -P G3n!usP@ssw0rd -Q "SELECT 1" -b -o /dev/null; do
             sleep 1
           done
           echo "SQL Server is ready!"
@@ -47,12 +48,12 @@ jobs:
     - name: Create Database
       run: |
           echo "Creating database..."
-          /opt/mssql-tools18/bin/sqlcmd -C -U SA -P G3n!usP@ssw0rd -Q "CREATE DATABASE smsNotifiy"
+          docker exec sqlserver-container /opt/mssql-tools18/bin/sqlcmd -C -U SA -P G3n!usP@ssw0rd -Q "CREATE DATABASE smsNotifiy"
 
     - name: List Databases
       run: |
           echo "Listing databases..."
-          /opt/mssql-tools18/bin/sqlcmd -C -U SA -P G3n!usP@ssw0rd -Q "SELECT name FROM sys.databases;"
+          docker exec sqlserver-container /opt/mssql-tools18/bin/sqlcmd -C -U SA -P G3n!usP@ssw0rd -Q "SELECT name FROM sys.databases;"
 
 
     - name: Run building the app.
