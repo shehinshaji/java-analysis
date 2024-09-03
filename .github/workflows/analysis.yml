@@ -48,7 +48,7 @@ jobs:
     - name: Create Database
       run: |
           echo "Creating database..."
-          docker exec sqlserver-container /opt/mssql-tools18/bin/sqlcmd -C -U SA -P G3n!usP@ssw0rd -Q "CREATE DATABASE $$MSSQL_DATABASE"
+          docker exec sqlserver-container /opt/mssql-tools18/bin/sqlcmd -C -U SA -P G3n!usP@ssw0rd -Q "CREATE DATABASE [$MSSQL_DATABASE]"
 
     - name: List Databases
       run: |
