@@ -10,6 +10,22 @@ jobs:
   code-quality:
     runs-on: ubuntu-latest
 
+    services:
+      db-dev:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        ports:
+          - "1440:1433"
+        env:
+          ACCEPT_EULA: "Y"
+          MSSQL_SA_PASSWORD: Password
+          MSSQL_PID: Developer
+          MSSQL_DATABASE: smsNotifiy
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -C -U SA -P Password -Q 'SELECT 1'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
@@ -20,13 +36,32 @@ jobs:
         distribution: 'temurin' # Install the OpenJDK
         java-version: '18'      # Adjust to your project’s Java version
 
+    - name: Wait for SQL Server to start
+      run: |
+          echo "Waiting for SQL Server to start..."
+          until /opt/mssql-tools18/bin/sqlcmd -C -U SA -P Password -Q "SELECT 1" -b -o /dev/null; do
+            sleep 1
+          done
+          echo "SQL Server is ready!"
+
+    - name: Create Database
+      run: |
+          echo "Creating database..."
+          /opt/mssql-tools18/bin/sqlcmd -C -U SA -P Password -Q "CREATE DATABASE smsNotifiy"
+
+    - name: List Databases
+      run: |
+          echo "Listing databases..."
+          /opt/mssql-tools18/bin/sqlcmd -C -U SA -P Password -Q "SELECT name FROM sys.databases;"
+
+
     - name: Run building the app.
       run: mvn -B clean package -DskipTests || echo "BUILD_ARTIFACT=true" >> $GITHUB_ENV
 
     - name: Run Checkstyle with Google Checks
       if: always()
       run: mvn checkstyle:check@google-checks -DskipTests || echo "CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
-      
+
     - name: Run Checkstyle with Custom Rules
       if: always()
       run: mvn checkstyle:check@custom-checks -DskipTests || echo "CUSTOM_CHECKSTYLE_FAILED=true" >> $GITHUB_ENV
@@ -83,7 +118,7 @@ jobs:
         uses: codecov/codecov-action@v4
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      
+
       - name: Report unit tests results
         uses: gmazzo/publish-report-annotations@v1
         if: always()
