@@ -8,14 +8,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-
       - name: Setup Maven Action
         uses: s4u/setup-maven-action@main
+        with:
+          java-version: 21
 
       - name: Build project with Maven
         run: mvn clean install
