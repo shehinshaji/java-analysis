@@ -8,11 +8,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
       - name: Build project with Maven
         run: mvn clean install
 
       - name: Dependency check in html
         uses: dependency-check/Dependency-Check_Action@main
+        env:
+          JAVA_HOME: /opt/jdk
         id: Depcheckhtml
         with:
           project: 'vulnerability test html'
