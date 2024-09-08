@@ -13,7 +13,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-          cache: 'maven'
+
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@main
 
       - name: Build project with Maven
         run: mvn clean install
