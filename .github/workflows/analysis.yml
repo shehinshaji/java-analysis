@@ -76,6 +76,12 @@ jobs:
       if: always()
       run: mvn pmd:check -DskipTests || echo "PMD_SCAN_FAILED=true" >> $GITHUB_ENV
 
+    - name: Execute Shell Command
+      run: |
+        ls -la
+        pwd
+        ls ${{github.workspace}}
+
     - name: Archive Checkstyle and PMD Reports
       if: always()
       uses: actions/upload-artifact@v3
