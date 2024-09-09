@@ -29,8 +29,17 @@ jobs:
           args: >
             --enableRetired
 
+      - name: Execute Shell Command
+        run: |
+          ls -la
+          pwd
+          ls ${{github.workspace}}
+          ls /
+
       - name: Upload Test results
         uses: actions/upload-artifact@master
+        env:
+          JAVA_HOME: /opt/jdk
         with:
            name: Depcheck report
            path: ${{github.workspace}}/reports
